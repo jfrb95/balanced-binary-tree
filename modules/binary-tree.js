@@ -68,6 +68,24 @@ export function Tree(array) {
             } else {
                 throw new Error('Something went wrong with value and node.data.')
             }
+        },
+        deleteItem(value) {
+            //const node = find(value);
+
+        },
+        find(value, node=root) {
+            if (node === null) {
+                return null;
+            }
+            if (node.data === value) {
+                return node;
+            } else if (value < node.data) {
+                this.find(value, node.left);
+            } else if (value > node.data) {
+                this.find(value, node.right);
+            } else {
+                throw new Error('Search value is not equal to, bigger than, or smaller than node.data');
+            }
         }
     }
 }

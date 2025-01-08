@@ -20,14 +20,19 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
 };
 
+//log(test.find(68));
+//log(null);
+
+//log(returnNull());
+
 //prettyPrint(test.root);
 
 //test.insert(2);
 
 //prettyPrint(test.root);
 
-prettyPrint(test2.root);
+//prettyPrint(test2.root);
 
-test2.insert(5);
+//test2.insert(5);
 
-prettyPrint(test2.root);
+//prettyPrint(test2.root);
