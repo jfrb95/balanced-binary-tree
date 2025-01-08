@@ -6,7 +6,7 @@ export function Tree(array) {
 
     const sortedArray = [...new Set(array)].sort((a, b) => a - b);
 
-    const root = buildTree(sortedArray);
+    let root = buildTree(sortedArray);
 
     function buildTree(array) {
 
@@ -39,6 +39,35 @@ export function Tree(array) {
     return {
         get root() {
             return root;
+        },
+        insert(value, node=root, parent=null, side=null) {
+            if (!root) {
+                root = Node(value);
+                return;
+            }
+            if (!node) {
+                node = Node(value);
+
+                (function updateParent(parent) {
+                    if (side === 'left') {
+                        parent.left = node;
+                    } else if (side === 'right') {
+                        parent.right = node;
+                    } else {
+                        throw new Error('Side is not left or right.');
+                    }
+                })(parent);
+
+            } else if (value < node.data) {
+                this.insert(value, node.left, node, 'left');
+            } else if (value > node.data) {
+                this.insert(value, node.right, node, 'right');
+            } else if (value === node.data) {
+                log('Value already exists in the tree');
+                return;
+            } else {
+                throw new Error('Something went wrong with value and node.data.')
+            }
         }
     }
 }
