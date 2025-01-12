@@ -36,6 +36,70 @@ export function Tree(array) {
         return root;
     }
 
+    function deleteNode(value, node=root) {
+        if (node === null) {
+            return node;
+        }
+
+        if (node.data > value) {
+            node.left = deleteNode(value, node.left);
+        } else if (node.data < value) {
+            node.right = deleteNode(value, node.right);
+        } else if (node.data === value) {
+            
+            if (node.left === null) {
+                return node.right;
+            }
+
+            if (node.right === null) {
+                return node.left;
+            }
+
+            const successor = getLowestSuccessor(node);
+            node.data = successor.data;
+            node.right = deleteNode(successor.data, node.right);
+        } else {
+            throw new Error('node.data is not equal to, greater than, or smaller than the search value.');
+        }
+
+        return node;
+    }
+
+    function getLowestSuccessor(node) {
+        let successor = node.right;
+        while (successor !== null && successor.left !== null) {
+            successor = successor.left;
+        }
+        return successor;
+    }
+    //PROBABLY NOT TO BE USED, BUT LOGIC MAY BE USEFUL:
+    function deleteItemCaseFinder(node){
+        if (function caseLeafNode(node) {
+            return (!node.left && !node.right);}()
+            ) 
+        {
+            return 'no children';
+        }
+        else if (function caseSingleChild(node) {
+                    log('left:', node.left, 'right:', node.right);
+                    log('equals?', node.left === node.right);
+                    return (node.left !== node.right);}()
+            ) 
+        {
+            return 'one child';
+        }
+        else if (function caseBothChildren(node) {
+                    return (node.left && node.right);}()
+            )
+        {
+            return 'two children';
+        }
+        else {
+            throw new Error('Node does AND does not have children.');
+        }
+    }
+
+
     return {
         get root() {
             return root;
@@ -70,8 +134,7 @@ export function Tree(array) {
             }
         },
         deleteItem(value) {
-            //const node = find(value);
-
+            root = deleteNode(value);
         },
         find(value, node=root) {
             if (node === null) {
@@ -79,11 +142,14 @@ export function Tree(array) {
             }
             if (node.data === value) {
                 return node;
-            } else if (value < node.data) {
+            }
+            else if (value < node.data) {
                 this.find(value, node.left);
-            } else if (value > node.data) {
+            }
+            else if (value > node.data) {
                 this.find(value, node.right);
-            } else {
+            }
+            else {
                 throw new Error('Search value is not equal to, bigger than, or smaller than node.data');
             }
         }
