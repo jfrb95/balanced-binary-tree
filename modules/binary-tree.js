@@ -1,4 +1,5 @@
 import { Node } from "./node.js";
+import { LinkedList } from "./linked-list.js";
 
 const log = console.log;
 
@@ -72,32 +73,6 @@ export function Tree(array) {
         }
         return successor;
     }
-    //PROBABLY NOT TO BE USED, BUT LOGIC MAY BE USEFUL:
-    function deleteItemCaseFinder(node){
-        if (function caseLeafNode(node) {
-            return (!node.left && !node.right);}()
-            ) 
-        {
-            return 'no children';
-        }
-        else if (function caseSingleChild(node) {
-                    log('left:', node.left, 'right:', node.right);
-                    log('equals?', node.left === node.right);
-                    return (node.left !== node.right);}()
-            ) 
-        {
-            return 'one child';
-        }
-        else if (function caseBothChildren(node) {
-                    return (node.left && node.right);}()
-            )
-        {
-            return 'two children';
-        }
-        else {
-            throw new Error('Node does AND does not have children.');
-        }
-    }
 
 
     return {
@@ -152,6 +127,32 @@ export function Tree(array) {
             else {
                 throw new Error('Search value is not equal to, bigger than, or smaller than node.data');
             }
+        },
+        levelOrder(callback) {
+            //traverses tree breadth first and call callback on each node
+            //  as it traverses, passes whole node into callback as argument.
+            
+            if (typeof callback !== 'function') {
+                throw new Error('levelOrder must have a function as an argument.');
+            }
+
+            const queue = LinkedList();
+
+            queue.append(root);
+            
+            while (queue.size > 0) {
+                const currentNode = queue.removeAt(0).value;
+                
+                callback(currentNode);
+
+                if (currentNode.left) {
+                    queue.append(currentNode.left);
+                }
+                if(currentNode.right) {
+                    queue.append(currentNode.right);
+                }
+            }
+
         }
     }
 }

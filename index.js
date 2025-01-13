@@ -27,16 +27,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(test.root);
 
-test.deleteItem(23);
+function f(node) {
+  log(node.data);
+}
 
-prettyPrint(test.root);
-
-//test.insert(2);
-
-//prettyPrint(test.root);
-
-//prettyPrint(test2.root);
-
-//test2.insert(5);
-
-//prettyPrint(test2.root);
+test.levelOrder(f);
