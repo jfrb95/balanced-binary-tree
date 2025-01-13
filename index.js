@@ -31,4 +31,4 @@ function f(node) {
   log(node.data);
 }
 
-test.levelOrder(f);
+test.postOrder(f);

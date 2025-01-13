@@ -128,14 +128,26 @@ export function Tree(array) {
                 throw new Error('Search value is not equal to, bigger than, or smaller than node.data');
             }
         },
-        levelOrder(callback) {
-            //traverses tree breadth first and call callback on each node
-            //  as it traverses, passes whole node into callback as argument.
+        levelOrder(callback, node=root) {
             
             if (typeof callback !== 'function') {
                 throw new Error('levelOrder must have a function as an argument.');
             }
 
+            //RECURSIVE APPROACH, DOES NOT VISIT IN CORRECT ORDER
+            /*
+            callback(node);
+
+            if (node.left) {
+                this.levelOrder(callback, node.left);
+            }
+            if (node.right) {
+                this.levelOrder(callback, node.right);
+            }
+            */
+
+            //ITERATIVE APPROACH:
+            
             const queue = LinkedList();
 
             queue.append(root);
@@ -152,7 +164,49 @@ export function Tree(array) {
                     queue.append(currentNode.right);
                 }
             }
+                
 
+        },
+        inOrder(callback, node=root) {
+            if (typeof callback !== 'function') {
+                throw new Error('levelOrder must have a function as an argument.');
+            }
+
+            if (node === null) {
+                return;
+            }
+
+            this.inOrder(callback, node.left);
+            callback(node);
+            this.inOrder(callback, node.right);
+
+        },
+        preOrder(callback, node=root) {
+            if (typeof callback !== 'function') {
+                throw new Error('levelOrder must have a function as an argument.');
+            }
+
+            if (node === null) {
+                return;
+            }
+
+            callback(node);
+            this.preOrder(callback, node.left);
+            this.preOrder(callback, node.right);
+
+        },
+        postOrder(callback, node=root) {
+            if (typeof callback !== 'function') {
+                throw new Error('levelOrder must have a function as an argument.');
+            }
+
+            if (node === null) {
+                return;
+            }
+
+            this.postOrder(callback, node.left);
+            this.postOrder(callback, node.right);
+            callback(node);
         }
     }
 }
