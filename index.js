@@ -2,46 +2,57 @@ import { Tree } from "./modules/binary-tree.js";
 
 const log = console.log;
 
-const test = Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 10, 11]);
-
-const test2 = Tree([]);
-
-
 const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node === null) {
-      return;
+        return;
     }
     if (node.right !== null) {
-      prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+        prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
     }
     console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
     if (node.left !== null) {
-      prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+        prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
 };
 
-//log(test.find(68));
-//log(null);
-
-//log(returnNull());
-
-function printData(node) {
+function printNodeCallback(node) {
   log(node.data);
 }
 
-prettyPrint(test.root);
+const array = [...Array(100)].map(() => Math.floor(Math.random()*100));
 
-log(test.isBalanced());
+const tree = Tree(array);
 
-test.deleteItem(10);
-test.deleteItem(11);
+prettyPrint(tree.root);
 
-prettyPrint(test.root);
+// log(tree.isBalanced());
 
-log(test.isBalanced());
+//log('preOrder print');
+//tree.preOrder(printNodeCallback);
 
-test.rebalance();
+// log('postOrder print');
+// tree.postOrder(printNodeCallback)
 
-prettyPrint(test.root);
+// log('inOrder print');
+// tree.inOrder(printNodeCallback)
 
-log(test.isBalanced());
+for (let i = 100; i < 200; i+=1) {
+    const chance = Math.random();
+
+    if (chance > 0.4) {
+        tree.insert(i);
+    }
+}
+
+// log(tree.isBalanced());
+
+tree.rebalance();
+
+// log('preOrder print');
+// tree.preOrder(printNodeCallback);
+
+// log('postOrder print');
+// tree.postOrder(printNodeCallback)
+
+log('inOrder print');
+tree.inOrder(printNodeCallback)

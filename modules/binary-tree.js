@@ -74,12 +74,12 @@ export function Tree(array) {
         return successor;
     }
 
-
     return {
         get root() {
             return root;
         },
         insert(value, node=root, parent=null, side=null) {
+            //possible to do neater without reference to parent or side
             if (!root) {
                 root = Node(value);
                 return;
