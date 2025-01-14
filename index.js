@@ -27,8 +27,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 prettyPrint(test.root);
 
-function f(node) {
-  log(node.data);
-}
+const node = test.find(9);
 
-test.postOrder(f);
+log(test.depth(node));

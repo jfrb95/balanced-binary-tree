@@ -119,10 +119,10 @@ export function Tree(array) {
                 return node;
             }
             else if (value < node.data) {
-                this.find(value, node.left);
+                return this.find(value, node.left);
             }
             else if (value > node.data) {
-                this.find(value, node.right);
+                return this.find(value, node.right);
             }
             else {
                 throw new Error('Search value is not equal to, bigger than, or smaller than node.data');
@@ -207,6 +207,40 @@ export function Tree(array) {
             this.postOrder(callback, node.left);
             this.postOrder(callback, node.right);
             callback(node);
+        },
+        height(node) {
+            if (!node) {
+                return -1;
+            }
+            const leftHeight = this.height(node.left);
+            const rightHeight = this.height(node.right);
+
+            const nodeHeight = Math.max(leftHeight, rightHeight) + 1;
+
+            return nodeHeight
+        },
+        depth(node, origin=root) {
+            if (!node) {
+                return null;
+            }
+            if (!origin) {
+                return null;
+            }
+
+            let distance = 0;
+
+            if (origin.data === node.data) {
+                return distance;
+            }
+            else if (origin.data < node.data) {
+                return this.depth(node, origin.right) + 1;
+            }
+            else if (origin.data > node.data) {
+                return this.depth(node, origin.left) + 1;
+            }
+            else {
+                throw new Error('node and origin values are not equal or different.')
+            }
         }
     }
 }
