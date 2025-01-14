@@ -25,8 +25,14 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 //log(returnNull());
 
+test.deleteItem(10);
+test.deleteItem(11);
+test.deleteItem(67);
+test.deleteItem(6345);
+test.deleteItem(23);
+test.deleteItem(324);
+test.deleteItem(9);
+
 prettyPrint(test.root);
 
-const node = test.find(9);
-
-log(test.depth(node));
+log(test.isBalanced());

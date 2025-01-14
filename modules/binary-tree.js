@@ -241,6 +241,25 @@ export function Tree(array) {
             else {
                 throw new Error('node and origin values are not equal or different.')
             }
+        },
+        isBalanced(node=root) {
+            if (!node) {
+                return true;
+            }
+
+            if (!this.isBalanced(node.left)) {
+                return false;
+            }
+
+            if (!this.isBalanced(node.right)) {
+                return false;
+            }
+
+            if (Math.abs(this.height(node.left) - this.height(node.right)) > 1) {
+                return false;
+            }
+
+            return true;
         }
     }
 }
