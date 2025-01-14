@@ -160,7 +160,7 @@ export function Tree(array) {
                 if (currentNode.left) {
                     queue.append(currentNode.left);
                 }
-                if(currentNode.right) {
+                if (currentNode.right) {
                     queue.append(currentNode.right);
                 }
             }
@@ -169,7 +169,7 @@ export function Tree(array) {
         },
         inOrder(callback, node=root) {
             if (typeof callback !== 'function') {
-                throw new Error('levelOrder must have a function as an argument.');
+                throw new Error('inOrder must have a function as an argument.');
             }
 
             if (node === null) {
@@ -183,7 +183,7 @@ export function Tree(array) {
         },
         preOrder(callback, node=root) {
             if (typeof callback !== 'function') {
-                throw new Error('levelOrder must have a function as an argument.');
+                throw new Error('preOrder must have a function as an argument.');
             }
 
             if (node === null) {
@@ -197,7 +197,7 @@ export function Tree(array) {
         },
         postOrder(callback, node=root) {
             if (typeof callback !== 'function') {
-                throw new Error('levelOrder must have a function as an argument.');
+                throw new Error('postOrder must have a function as an argument.');
             }
 
             if (node === null) {
@@ -260,6 +260,15 @@ export function Tree(array) {
             }
 
             return true;
+        },
+        rebalance() {
+            const newArray = [];
+
+            this.inOrder((node) => {
+                newArray.push(node.data);
+            });
+
+            root = buildTree(newArray);
         }
     }
 }
